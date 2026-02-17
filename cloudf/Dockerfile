@@ -3,20 +3,20 @@ FROM node:20-alpine AS build
 WORKDIR /work
 
 # instala deps
-COPY cloudf/package*.json ./cloudf/
-RUN cd cloudf && npm install
+COPY project1/package*.json ./project1/
+RUN cd project1 && npm install
 
 # copia el código
-COPY cloudf ./cloudf
+COPY project1 ./project1
 
 # build (ajusta si tu script se llama diferente)
-RUN cd cloudf && npm run build
+RUN cd project1 && npm run build
 
 # ---- runtime ----
 FROM nginx:alpine
 # UI5 suele generar dist/ o webapp/ dependiendo del setup
 # si tu build genera "dist", esto está bien:
-COPY --from=build /work/cloudf/dist /usr/share/nginx/html
+COPY --from=build /work/project1/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # nginx escucha 80 por defecto
