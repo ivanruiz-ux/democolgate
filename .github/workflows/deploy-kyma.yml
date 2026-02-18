@@ -41,9 +41,11 @@ jobs:
           echo "== contexts =="
           kubectl config get-contexts
 
-          CTX="$(kubectl config view -o jsonpath='{.contexts[0].name}')"
+          CTX="$(kubectl config get-contexts -o name | head -n 1)"
           echo "Using CTX=$CTX"
+
           kubectl config use-context "$CTX"
+          kubectl config current-context
 
       - name: Deploy to Kyma
         env:
