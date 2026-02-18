@@ -24,7 +24,7 @@ async function fetchToken() {
   const clientSecret = mustEnv("CLIENT_SECRET");
 
   // Basic Auth como Postman (client_authentication: header)
-  const basic = Buffer.from(`${ clientId }:${clientSecret}`).toString("base64");
+  const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
 
   const res = await fetch(tokenUrl, {
     method: "POST",
@@ -37,7 +37,7 @@ body: "grant_type=client_credentials"
 
 const txt = await res.text();
 if (!res.ok) {
-  throw new Error(`Token error HTTP ${ res.status }: ${ txt}`);
+  throw new Error(`Token error HTTP ${res.status}: ${txt}`);
 }
 
 let json;

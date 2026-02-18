@@ -43,6 +43,6 @@ jobs:
           NS: ${{ secrets.KYMA_NAMESPACE }}
           IMG: ghcr.io/${{ github.repository }}:${{ github.sha }}
         run: |
-          sed "s|image: .*|image: ${IMG}|g" k8s/deployment.yaml | kubectl apply -n ${NS} -f -
-          kubectl apply -n ${NS} -f k8s/service.yaml
-          kubectl apply -n ${NS} -f k8s/apirule.yaml
+          sed "s|image: .*|image: ${IMG}|g" cloudf/k8s/deployment.yaml | kubectl apply -n ${NS} -f -
+          kubectl apply -n ${NS} -f cloudf/k8s/service.yaml
+          kubectl apply -n ${NS} -f cloudf/k8s/apirule.yaml

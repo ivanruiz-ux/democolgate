@@ -1,24 +1,18 @@
 # ---- build ----
 FROM node:20-alpine AS build
-WORKDIR /work
+WORKDIR /work/project1
 
 # instala deps
-COPY /project1/package*.json ./project1/
-RUN cd project1 && npm install
+COPY cloudf/project1/package*.json ./
+RUN npm ci
 
 # copia el código
+COPY cloudf/project1/ ./
 
-COPY /project1 ./project1
-
-# build (ajusta si tu script se llama diferente)
-RUN cd /project1 && npm run build
+# build (tu package.json debe tener "build")
+RUN npm run build
 
 # ---- runtime ----
 FROM nginx:alpine
-# UI5 suele generar dist/ o webapp/ dependiendo del setup
-# si tu build genera "dist", esto está bien:
 COPY --from=build /work/project1/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# nginx escucha 80 por defecto
 EXPOSE 80

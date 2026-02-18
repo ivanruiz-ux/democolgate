@@ -83,8 +83,6 @@ sap.ui.define([
                 }
             const oModel = new JSONModel(oData);
             this.getView().setModel(oModel);
-            this.loadPrinters();
-            this.loadWorksCenter();
             this.onGetHu();
             this.loadPrinters();
             this.loadWorkCenters();
