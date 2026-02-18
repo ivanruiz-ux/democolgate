@@ -48,3 +48,8 @@ jobs:
           sed "s|image: .*|image: ${IMG}|g" cloudf/k8s/deployment.yaml | kubectl apply -n ${NS} -f -
           kubectl apply -n ${NS} -f cloudf/k8s/service.yaml
           kubectl apply -n ${NS} -f cloudf/k8s/apirule.yaml
+
+      - name: Debug kubeconfig
+        run: |
+          kubectl config get-contexts
+          kubectl  config current-context
