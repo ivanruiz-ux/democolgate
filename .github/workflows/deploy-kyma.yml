@@ -37,8 +37,13 @@ jobs:
         run: |
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG_B64 }}" | base64 -d > $HOME/.kube/config
+
+          echo "Contexts:"
           kubectl config get-contexts
-          kubectl config current-context
+
+          CTX=$(kubectl config get-contexts -o name | head -n 1)
+          echo "Using context: $CTX"
+          kubectl config use-context "$CTX"
 
       - name: Deploy to Kyma
         env:
